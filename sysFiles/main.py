@@ -172,7 +172,7 @@ class BB:
                 sleep(1)
                 try:
                     driver.find_element_by_css_selector('#tutorial-dialog-tutorials-menu-learn-about-tutorials-menu-close').click()
-                    sleep(1)
+                    sleep(2)
                     driver.find_element_by_xpath('/html/body/div[1]/div[1]/main/bb-panel-open-control/div/button[1]').click()
                     sleep(1)
                     driver.find_element_by_xpath('/html/body/div[1]/div[1]/main/div[3]/section/div/div/ul/li/ul/li/bb-channel-list-item/button').click()
