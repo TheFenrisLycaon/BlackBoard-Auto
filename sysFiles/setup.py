@@ -1,5 +1,6 @@
 import subprocess
 import os
+import sys
 
 def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
@@ -163,6 +164,11 @@ class BB:
             print("Wrong username or password !!! Try Again !!!")
             self.login()
 
+    def bye(self):
+        driver = self.driver
+        driver.quit()
+
+
         
 
 if __name__ == "__main__":
@@ -177,4 +183,8 @@ if __name__ == "__main__":
     comp = './Data/.setupComp'
 
     with open(comp, 'w') as fileIn:
-        comp.write('Welcome to future !!!')
+        fileIn.write('Welcome to future !!!')
+
+    input()
+
+    x.bye()

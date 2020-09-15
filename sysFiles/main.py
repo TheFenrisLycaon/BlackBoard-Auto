@@ -1,5 +1,6 @@
 import subprocess
 import ast
+import sys
 import os
 
 timestamps = [945, 1045, 1145, 1245, 1330, 1430, 1530]
