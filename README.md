@@ -6,6 +6,8 @@ With that being said, let's get right into it, shall we ?
 
 ## Installation
 
+Download or clone this repository in your PC and extract.
+
 To use the program, you only need to run the ```runMe.bat``` file
 
 On first run, it will execute the setup which will ask for your credentials and your weekly timetable, which you need to put in the prompt opened **and not the browser itself**. Don't worry the software is very interactive and you'll have no problem setting it up on your Windows PC. 
