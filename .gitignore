@@ -6,7 +6,8 @@
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
 
-Data
+Data/
+.vscode
 
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
@@ -57,6 +58,8 @@ MANIFEST
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
+
+
 
 # Unit test / coverage reports
 htmlcov/

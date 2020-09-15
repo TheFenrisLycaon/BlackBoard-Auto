@@ -170,14 +170,17 @@ class BB:
                 sleep(5)
                 driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div/div/div[4]/button').click()
                 sleep(1)
-                driver.find_element_by_css_selector('#tutorial-dialog-tutorials-menu-learn-about-tutorials-menu-close').click()
-                sleep(1)
-                driver.find_element_by_xpath('/html/body/div[1]/div[1]/main/bb-panel-open-control/div/button[1]').click()
-                sleep(1)
-                driver.find_element_by_xpath('/html/body/div[1]/div[1]/main/div[3]/section/div/div/ul/li/ul/li/bb-channel-list-item/button').click()
-                driver.find_element_by_xpath('//*[@id="channel-item-d74321ca-1af3-4008-a21a-6f38559f1924"]/span').click()
-                sleep(1)
-                timeWaiting -= 60
+                try:
+                    driver.find_element_by_css_selector('#tutorial-dialog-tutorials-menu-learn-about-tutorials-menu-close').click()
+                    sleep(1)
+                    driver.find_element_by_xpath('/html/body/div[1]/div[1]/main/bb-panel-open-control/div/button[1]').click()
+                    sleep(1)
+                    driver.find_element_by_xpath('/html/body/div[1]/div[1]/main/div[3]/section/div/div/ul/li/ul/li/bb-channel-list-item/button').click()
+                    driver.find_element_by_xpath('//*[@id="channel-item-d74321ca-1af3-4008-a21a-6f38559f1924"]/span').click()
+                    sleep(1)
+                    timeWaiting -= 65
+                except:
+                    timeWaiting -= 60
             else:
                 timeWaiting -= 20
             
