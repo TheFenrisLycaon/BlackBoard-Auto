@@ -147,7 +147,7 @@ class BB:
                 driver.get(x[t])
                 print("\nClass from " + str(timestamps[t]) + ' to ' + str(timestamps[t+1]))
             
-            sleep(15)
+            sleep(10)
 
             print("Getting Books !!!")
             driver.find_element_by_css_selector('#sessions-list-dropdown').click()
@@ -155,7 +155,7 @@ class BB:
             print("Getting in Class !!!")
             try:
                 driver.find_element_by_xpath('/html/body/div[1]/div[2]/bb-base-layout/div/main/div[3]/div/div[3]/div/div/div/div[2]/div/div[2]/div[3]/div/div[2]/div[3]/aside/div[6]/div[2]/div[2]/div/div/ul/li[2]/a').click()
-                sleep(60)
+                sleep(45)
             except:
                 print('No class, BB error maybe !!!')
             
@@ -164,11 +164,11 @@ class BB:
             if classno == 0:
                 print("Turning Mic On !")
                 driver.find_element_by_css_selector("#dialog-description-audio > div.techcheck-controls.equal-buttons.buttons-2-md > button").click()
-                sleep(5)
+                sleep(10)
                 print("Turning Video On !")
                 driver.find_element_by_css_selector('#techcheck-video-ok-button').click()
-                sleep(5)
-                driver.find_element_by_xpath('/html/body/div[1]/div[2]/div/div/div/div[4]/button').click()
+                sleep(10)
+                driver.find_element_by_css_selector('#announcement-modal-page-wrap > div > div.announcement-later-tutorial.ng-scope > button').click()
                 sleep(1)
                 try:
                     driver.find_element_by_css_selector('#tutorial-dialog-tutorials-menu-learn-about-tutorials-menu-close').click()
@@ -192,9 +192,9 @@ class BB:
                     driver.find_element_by_xpath('//*[@id="message-input"]').click()
                     
                     if int(date.now().strftime("%H%M")) >= 1200 :
-                        driver.find_element_by_xpath('//*[@id="message-input"]').send_keys("Good Afternoon everyone !!")
+                        driver.find_element_by_xpath('//*[@id="message-input"]').send_keys("Good Afternoon everyone !!").send_keys(Keys.ENTER)
                     else:
-                        driver.find_element_by_xpath('//*[@id="message-input"]').send_keys("Good Morning everyone !!")
+                        driver.find_element_by_xpath('//*[@id="message-input"]').send_keys("Good Morning everyone !!").send_keys(Keys.ENTER)
                 
                 except:
                     print("Nah, not worth it !")
