@@ -2,6 +2,7 @@ import subprocess
 import ast
 import sys
 import os
+from threading import Timer
 
 timestamps = [945, 1045, 1145, 1245, 1330, 1430, 1530]
 
@@ -186,7 +187,14 @@ class BB:
             
             print("In class... Waiting for ::\t" + str(timeWaiting) + ' seconds !')
             
-            if(str(input("Wish the prof?(y/n)\t")) == 'y'):
+            wish = None
+            timeout = 10
+            timer = Timer(timeout, print, ['Sorry, times up'])
+            timer.start()
+            wish = str(input("Wish the prof?(y/n)\t"))
+            timer.cancel()
+            timeWaiting -= 10
+            if 'y' in wish.lower():
                 try:
                     print("Tryna Wish the professor !")
                     driver.find_element_by_xpath('//*[@id="message-input"]').click()
@@ -203,7 +211,7 @@ class BB:
                 print('Okay')
             
             t += 1
-            
+
             classno += 1
             sleep(timeWaiting)
             driver.close()
