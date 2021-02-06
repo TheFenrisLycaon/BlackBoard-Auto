@@ -69,7 +69,7 @@ class BB:
         #     print(_)
 
         self.driver = webdriver.Chrome(
-            executable_path=r"./sysFiles/brow.exe", options=set_opt())
+            executable_path=r"./sysFiles/chromedriver", options=set_opt())
         self.driver.get("https://cuchd.blackboard.com/?new_loc=%2Fultra%2Fcourse")
         sleep(2)
 
