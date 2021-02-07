@@ -14,7 +14,7 @@ On first run, it will execute the setup which will ask for your credentials and 
 
 ## Usage
 
-So you're done with the installation. But, how do you use it? It's really simple actually, you run the same ```runME.bat``` and voila, you're in your class. *It's recommended that you don't interact with the browser window while it's connecting but, meh. Do what you want !*
+So you're done with the installation. But, how do you use it? It's really simple actually, you run the same ```runME.sh``` and voila, you're in your class. *It's recommended that you don't interact with the browser window while it's connecting but, meh. Do what you want !*
 
 In theory this will log in onto BlackBoard and join you're class according to the timetable provided by you while the installation. 
 
