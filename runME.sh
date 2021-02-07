@@ -1,7 +1,7 @@
 #!bin/bash
-if [[ -f "./Data" ]]
+if [[ -d "./Data" ]]
 then
-    bash -c './sysFiles/main.py'
+        python ./sysFiles/main.py
 else
-    bash -c './sysFiles/setup.py'
+        python ./sysFiles/setup.py
 fi
