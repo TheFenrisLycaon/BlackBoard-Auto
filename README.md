@@ -8,9 +8,9 @@ With that being said, let's get right into it, shall we ?
 
 Download or clone this repository in your PC and extract.
 
-To use the program, you only need to run the ```runMe.bat``` file
+To use the program, you only need to run the ```runMe.sh``` file
 
-On first run, it will execute the setup which will ask for your credentials and your weekly timetable, which you need to put in the prompt opened **and not the browser itself**. Don't worry the software is very interactive and you'll have no problem setting it up on your Windows PC. 
+On first run, it will execute the setup which will ask for your credentials and your weekly timetable, which you need to put in the prompt opened **and not the browser itself**. Don't worry the software is very interactive and you'll have no problem setting it up on your PC. Just follow the instructions in the terminal.
 
 ## Usage
 
@@ -20,7 +20,4 @@ In theory this will log in onto BlackBoard and join you're class according to th
 
 
 
-
-
-
-NOTE :: This is still under testing and I am sorry if you face any problems feel free to contact. Also, let me know if you have any suggestions for the program. You know where to find me. Adios !
+NOTE :: This is still under testing and I am sorry if you face any problems feel free to contact. Also, let me know if you have any suggestions for the program or want to help in this project. You know where to find me. Adios !
