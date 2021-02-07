@@ -1,5 +1,5 @@
 #!bin/bash
-if [[ -d "./Data" ]]
+if [[ -f "./Data/.setupComp" ]]
 then
         python ./sysFiles/main.py
 else

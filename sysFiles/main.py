@@ -4,7 +4,7 @@ import sys
 import os
 from threading import Timer
 
-timestamps = [945, 1045, 1145, 1245, 1330, 1430, 1530]
+timestamps = [945, 1045, 1145, 1245, 1330, 1430, 1530, 1630]
 
 def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
@@ -53,7 +53,7 @@ class BB:
                 # print(self.username)
                 # print(self.password)
         except:
-            print("No File, run your installation file again!!!")
+            print("No File, run setup again!!!")
         
         courseFile = './Data/.courseFile'
         calFile = './Data/.calFile'
@@ -129,12 +129,14 @@ class BB:
             t = 4
         elif y >= 1430 and y < 1530:
             t = 5
+        elif y>= 1530 and y < 1630:
+            t = 6
         else:
             print("You're too late to handle the power of spinjitzu !!!")
         
         classno = 0
         
-        while y < 1530:
+        while y < 1630:
             timeWaiting = (((timestamps[t+1]//100)*60 + timestamps[t+1]%100)*60 - ((y//100)*60 + y%100)*60)
             
             if x[t] == None:
@@ -158,7 +160,7 @@ class BB:
                 driver.find_element_by_xpath('/html/body/div[1]/div[2]/bb-base-layout/div/main/div[3]/div/div[3]/div/div/div/div[2]/div/div[2]/div[3]/div/div[2]/div[3]/aside/div[6]/div[2]/div[2]/div/div/ul/li[2]/a').click()
                 sleep(45)
             except:
-                print('No class, BB error maybe !!!')
+                print('No class or  BB error maybe !!!')
             
             driver.switch_to.window(driver.window_handles[-1])
 
@@ -187,29 +189,7 @@ class BB:
             
             print("In class... Waiting for ::\t" + str(timeWaiting) + ' seconds !')
             
-            wish = None
-            timeout = 10
-            timer = Timer(timeout, print, ['Sorry, times up'])
-            timer.start()
-            wish = str(input("Wish the prof?(y/n)\t"))
-            timer.cancel()
-            timeWaiting -= 10
-            if 'y' in wish.lower():
-                try:
-                    print("Tryna Wish the professor !")
-                    driver.find_element_by_xpath('//*[@id="message-input"]').click()
-                    
-                    if int(date.now().strftime("%H%M")) >= 1200 :
-                        driver.find_element_by_xpath('//*[@id="message-input"]').send_keys("Good Afternoon everyone !!").send_keys(Keys.ENTER)
-                    else:
-                        driver.find_element_by_xpath('//*[@id="message-input"]').send_keys("Good Morning everyone !!").send_keys(Keys.ENTER)
-                
-                except:
-                    print("Nah, not worth it !")
-                    pass
-            else:
-                print('Okay')
-            
+           
             t += 1
 
             classno += 1

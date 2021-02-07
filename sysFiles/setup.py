@@ -37,6 +37,45 @@ def set_opt():
 
 class BB:
 
+    def __init__(self):
+        self.username = str(input('Enter Username ::\t'))
+        self.password = str(input('Enter Password ::\t'))
+            
+        if os.path.isdir('Data'):
+            pass
+        else:
+            os.makedirs('Data')
+
+        self.courses = []
+        self.weekdays = [None, None, None, None, None, None]
+        self.driver = webdriver.Chrome(
+            executable_path=r"./sysFiles/chromedriver", options=set_opt())
+        self.driver.get("https://cuchd.blackboard.com/?new_loc=%2Fultra%2Fcourse")
+        sleep(2)
+ 
+        def login(self):
+        driver = self.driver
+        try:
+            driver.find_element_by_xpath('//*[@id="agree_button"]')\
+                .click()
+            driver.find_element_by_xpath('//*[@id="user_id"]')\
+                .send_keys(self.username)
+            driver.find_element_by_xpath('//*[@id="password"]')\
+                .send_keys(self.password)
+            driver.find_element_by_xpath('//*[@id="entry-login"]')\
+                .click()
+            sleep(4)
+        except:
+            print("Wrong username or password !!! Try Again !!!")
+            self.login()
+
+    def gettingStarted(self):
+        print('Getting your courses... Please Wait')
+        self.setCourses()
+        print('{} courses found'.format(len(self.courses)))
+        self.setCalender()
+
+
     def setCourses(self):
         driver = self.driver
         sleep (10)
@@ -49,45 +88,38 @@ class BB:
         body.send_keys(Keys.PAGE_DOWN)
         sleep(2)
 
-        codes = []
-        names = []
-        subcodes = []
+        self.codes = []
+        self.names = []
+        self.subcodes = []
         
         for item in page.find_elements_by_xpath('//*[@class="default-group term-"]'):
             courseid = item.find_element_by_css_selector('bb-base-course-card > div').get_attribute('data-course-id')
-            codes.append(courseid)
-            names.append(item.find_element_by_css_selector('#course-link-{} > h4'.format(courseid)).get_attribute('title'))
-            subcodes.append(item.find_element_by_css_selector('#course-list-course-{} > div.element-details.summary > div.multi-column-course-id'.format(courseid)).text)
+            self.codes.append(courseid)
+            self.names.append(item.find_element_by_css_selector('#course-link-{} > h4'.format(courseid)).get_attribute('title'))
+            self.subcodes.append(item.find_element_by_css_selector('#course-list-course-{} > div.element-details.summary > div.multi-column-course-id'.format(courseid)).text)
 
         for item in page.find_elements_by_xpath('//*[@class="default-group term- last-item"]'):
             courseid = item.find_element_by_css_selector('bb-base-course-card > div').get_attribute('data-course-id')
-            codes.append(courseid)
-            names.append(item.find_element_by_css_selector('#course-link-{} > h4'.format(courseid)).get_attribute('title'))
-            subcodes.append(item.find_element_by_css_selector('#course-list-course-{} > div.element-details.summary > div.multi-column-course-id'.format(courseid)).text)
+            self.codes.append(courseid)
+            self.names.append(item.find_element_by_css_selector('#course-link-{} > h4'.format(courseid)).get_attribute('title'))
+            self.subcodes.append(item.find_element_by_css_selector('#course-list-course-{} > div.element-details.summary > div.multi-column-course-id'.format(courseid)).text)
 
         # print(codes)
         # print(names)
         # print(subcodes)
-        links = []
-        for i in codes:
-            links.append('https://cuchd.blackboard.com/ultra/courses/'+i+'/outline')
+        self.links = []
+        for i in self.codes:
+            self.links.append('https://cuchd.blackboard.com/ultra/courses/'+i+'/outline')
         # print(links)
 
-        for i in range(len(codes)):
+        for i in range(len(self.codes)):
             self.courses.append((i+1,names[i], links[i],subcodes[i][:7]))
-
-        courseFile = './Data/.courseFile'
-        
-        with open(courseFile, 'w') as fileIn:
-            for i in range(len(codes)):
-                fileIn.write("{} :: {} :: {} :: {}\n".format(i+1,names[i], links[i],subcodes[i][:7]))
-
 
     def setCalender(self):
         self.weekdays = [('MON', []), ('TUE', []), ('WED', []), ('THU', []), ('FRI', []), ('SAT', [])]
         
         for i in range(len(self.courses)):
-            print(self.courses[i][0], '\t', self.courses[i][3], '\t', self.courses[i][1])
+            print('[' + str(self.courses[i][0]) + ']\t' + str(self.courses[i][3]) +  '\t' + str(self.courses[i][1]))
         
         print('Now set-up your daily calender.\tEnter the sub-codes as given above, enter 0 if you have no class or mid-day break.\nFor example if you have classes 1, 2, 3, break, 4 and 5 on the first day,\tEnter 1 2 3 0 4 5\n:')
         
@@ -112,6 +144,19 @@ class BB:
                         couLink = None
                     self.weekdays[k][1].append(couLink)
 
+        
+    def saveState(self):
+        cred = './Data/.cred'
+
+        with open(cred, 'w') as fileIn:
+            fileIn.write("{}\n{}".format(self.username,self.password))
+
+
+        courseFile = './Data/.courseFile'
+        
+        with open(courseFile, 'w') as fileIn:
+            for i in range(len(codes)):
+                fileIn.write("{} :: {} :: {} :: {}\n".format(i+1,self.names[i], self.links[i],self.subcodes[i][:10]))
 
         calFile = './Data/.calFile'
 
@@ -119,50 +164,6 @@ class BB:
             for i in range(6):
                 fileIn.write('{} : {}\n'.format(self.weekdays[i][0], self.weekdays[i][1]))
 
-
-    def __init__(self):
-        self.username = str(input('Enter Username ::\t'))
-        self.password = str(input('Enter Password ::\t'))
-        cred = '.doNotTouch'
-            
-        if os.path.isdir('Data'):
-            pass
-        else:
-            os.makedirs('Data')
-        cred = './Data/.doNotTouch'
-
-        with open(cred, 'w') as fileIn:
-            fileIn.write("{}\n{}".format(self.username,self.password))
-
-        self.courses = []
-        self.weekdays = [None, None, None, None, None, None]
-        self.driver = webdriver.Chrome(
-            executable_path=r"./sysFiles/chromedriver", options=set_opt())
-        self.driver.get("https://cuchd.blackboard.com/?new_loc=%2Fultra%2Fcourse")
-        sleep(2)
-        
-        
-    def gettingStarted(self):
-        print('Getting your courses... PLease Wait')
-        self.setCourses()
-        print('{} courses found'.format(len(self.courses)))
-        self.setCalender()
-
-    def login(self):
-        driver = self.driver
-        try:
-            driver.find_element_by_xpath('//*[@id="agree_button"]')\
-                .click()
-            driver.find_element_by_xpath('//*[@id="user_id"]')\
-                .send_keys(self.username)
-            driver.find_element_by_xpath('//*[@id="password"]')\
-                .send_keys(self.password)
-            driver.find_element_by_xpath('//*[@id="entry-login"]')\
-                .click()
-            sleep(4)
-        except:
-            print("Wrong username or password !!! Try Again !!!")
-            self.login()
 
     def bye(self):
         driver = self.driver
