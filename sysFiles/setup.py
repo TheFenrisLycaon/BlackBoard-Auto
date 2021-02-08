@@ -1,6 +1,7 @@
 import subprocess
 import os
 import sys
+from getpass import getpass
 
 def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
@@ -39,7 +40,7 @@ class BB:
 
     def __init__(self):
         self.username = str(input('Enter Username ::\t'))
-        self.password = str(input('Enter Password ::\t'))
+        self.password = str(getpass('Enter Password ::\t'))
             
         if os.path.isdir('Data'):
             pass
@@ -53,7 +54,7 @@ class BB:
         self.driver.get("https://cuchd.blackboard.com/?new_loc=%2Fultra%2Fcourse")
         sleep(2)
  
-        def login(self):
+    def login(self):
         driver = self.driver
         try:
             driver.find_element_by_xpath('//*[@id="agree_button"]')\
@@ -166,6 +167,7 @@ class BB:
 
 
     def bye(self):
+        self.saveState()
         driver = self.driver
         driver.quit()
 

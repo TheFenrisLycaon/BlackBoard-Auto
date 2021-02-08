@@ -1,7 +1,7 @@
-#!bin/bash
+#!/bin/bash
 if [[ -f "./Data/.setupComp" ]]
 then
-        python ./sysFiles/main.py
+        cd "$(dirname "$0")"; python ./sysFiles/main.py
 else
-        python ./sysFiles/setup.py
+        cd "$(dirname "$0")"; python ./sysFiles/setup.py
 fi
