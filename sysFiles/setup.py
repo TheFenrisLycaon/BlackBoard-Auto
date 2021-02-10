@@ -3,8 +3,10 @@ import os
 import sys
 from getpass import getpass
 
+
 def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
 
 try:
     from selenium import webdriver
@@ -18,30 +20,33 @@ except:
     print('Installing imports')
     install('selenium')
 
-def set_opt():        
+
+def set_opt():
     opt = Options()
     opt.add_argument("--disable-infobars")
     opt.add_argument("start-maximized")
     opt.add_argument("--disable-extensions")
     opt.add_argument('--ignore-certificate-errors-spki-list')
     opt.add_argument('--ignore-ssl-errors')
-    opt.add_experimental_option("excludeSwitches", ["enable-logging", 'enable-automation'])
-    opt.add_experimental_option("prefs", { \
-        "profile.default_content_setting_values.media_stream_mic": 1, 
+    opt.add_experimental_option(
+        "excludeSwitches", ["enable-logging", 'enable-automation'])
+    opt.add_experimental_option("prefs", {
+        "profile.default_content_setting_values.media_stream_mic": 1,
         "profile.default_content_setting_values.media_stream_camera": 1,
-        "profile.default_content_setting_values.geolocation": 1, 
+        "profile.default_content_setting_values.geolocation": 1,
         "profile.default_content_setting_values.notifications": 1,
         "credentials_enable_service": False,
         "profile.password_manager_enabled": False
     })
     return opt
 
+
 class BB:
 
     def __init__(self):
         self.username = str(input('Enter Username ::\t'))
         self.password = str(getpass('Enter Password ::\t'))
-            
+
         if os.path.isdir('Data'):
             pass
         else:
@@ -51,9 +56,10 @@ class BB:
         self.weekdays = [None, None, None, None, None, None]
         self.driver = webdriver.Chrome(
             executable_path=r"./sysFiles/chromedriver", options=set_opt())
-        self.driver.get("https://cuchd.blackboard.com/?new_loc=%2Fultra%2Fcourse")
+        self.driver.get(
+            "https://cuchd.blackboard.com/?new_loc=%2Fultra%2Fcourse")
         sleep(2)
- 
+
     def login(self):
         driver = self.driver
         try:
@@ -76,12 +82,11 @@ class BB:
         print('{} courses found'.format(len(self.courses)))
         self.setCalender()
 
-
     def setCourses(self):
         driver = self.driver
-        sleep (10)
+        sleep(10)
         page = driver.find_element_by_css_selector('#main-content-inner > div')
-        k = '#main-heading'            
+        k = '#main-heading'
         body = driver.find_element_by_css_selector(k)
         body.click()
         body.send_keys(Keys.PAGE_DOWN)
@@ -92,49 +97,61 @@ class BB:
         self.codes = []
         self.names = []
         self.subcodes = []
-        
+
         for item in page.find_elements_by_xpath('//*[@class="default-group term-"]'):
-            courseid = item.find_element_by_css_selector('bb-base-course-card > div').get_attribute('data-course-id')
+            courseid = item.find_element_by_css_selector(
+                'bb-base-course-card > div').get_attribute('data-course-id')
             self.codes.append(courseid)
-            self.names.append(item.find_element_by_css_selector('#course-link-{} > h4'.format(courseid)).get_attribute('title'))
-            self.subcodes.append(item.find_element_by_css_selector('#course-list-course-{} > div.element-details.summary > div.multi-column-course-id'.format(courseid)).text)
+            self.names.append(item.find_element_by_css_selector(
+                '#course-link-{} > h4'.format(courseid)).get_attribute('title'))
+            self.subcodes.append(item.find_element_by_css_selector(
+                '#course-list-course-{} > div.element-details.summary > div.multi-column-course-id'.format(courseid)).text)
 
         for item in page.find_elements_by_xpath('//*[@class="default-group term- last-item"]'):
-            courseid = item.find_element_by_css_selector('bb-base-course-card > div').get_attribute('data-course-id')
+            courseid = item.find_element_by_css_selector(
+                'bb-base-course-card > div').get_attribute('data-course-id')
             self.codes.append(courseid)
-            self.names.append(item.find_element_by_css_selector('#course-link-{} > h4'.format(courseid)).get_attribute('title'))
-            self.subcodes.append(item.find_element_by_css_selector('#course-list-course-{} > div.element-details.summary > div.multi-column-course-id'.format(courseid)).text)
+            self.names.append(item.find_element_by_css_selector(
+                '#course-link-{} > h4'.format(courseid)).get_attribute('title'))
+            self.subcodes.append(item.find_element_by_css_selector(
+                '#course-list-course-{} > div.element-details.summary > div.multi-column-course-id'.format(courseid)).text)
 
         # print(codes)
         # print(names)
         # print(subcodes)
         self.links = []
         for i in self.codes:
-            self.links.append('https://cuchd.blackboard.com/ultra/courses/'+i+'/outline')
+            self.links.append(
+                'https://cuchd.blackboard.com/ultra/courses/'+i+'/outline')
         # print(links)
 
         for i in range(len(self.codes)):
-            self.courses.append((i+1,names[i], links[i],subcodes[i][:7]))
+            self.courses.append(
+                (i+1, self.names[i], self.links[i], self.subcodes[i][:10]))
 
     def setCalender(self):
-        self.weekdays = [('MON', []), ('TUE', []), ('WED', []), ('THU', []), ('FRI', []), ('SAT', [])]
-        
+        self.weekdays = [('MON', []), ('TUE', []), ('WED', []),
+                         ('THU', []), ('FRI', []), ('SAT', [])]
+
         for i in range(len(self.courses)):
-            print('[' + str(self.courses[i][0]) + ']\t' + str(self.courses[i][3]) +  '\t' + str(self.courses[i][1]))
-        
+            print('[' + str(self.courses[i][0]) + ']\t' +
+                  str(self.courses[i][3]) + '\t' + str(self.courses[i][1]))
+
         print('Now set-up your daily calender.\tEnter the sub-codes as given above, enter 0 if you have no class or mid-day break.\nFor example if you have classes 1, 2, 3, break, 4 and 5 on the first day,\tEnter 1 2 3 0 4 5\n:')
-        
+
         for k in range(6):
             restart = True
             while restart == True:
                 restart = False
-                userInpCal = list(map(int, input('{}::'.format(self.weekdays[k][0])).split()))
-        
+                userInpCal = list(
+                    map(int, input('{}::'.format(self.weekdays[k][0])).split()))
+
                 for _ in range(len(userInpCal)):
                     if userInpCal[_] == 0:
                         userInpCal[_] = None
                     if userInpCal[_] != None and userInpCal[_] > len(self.courses):
-                        print("Error, you only have {} subjects!\nTry again!".format(len(self.courses)))
+                        print("Error, you only have {} subjects!\nTry again!".format(
+                            len(self.courses)))
                         restart = True
                         break
 
@@ -145,26 +162,25 @@ class BB:
                         couLink = None
                     self.weekdays[k][1].append(couLink)
 
-        
     def saveState(self):
         cred = './Data/.cred'
 
         with open(cred, 'w') as fileIn:
-            fileIn.write("{}\n{}".format(self.username,self.password))
-
+            fileIn.write("{}\n{}".format(self.username, self.password))
 
         courseFile = './Data/.courseFile'
-        
+
         with open(courseFile, 'w') as fileIn:
-            for i in range(len(codes)):
-                fileIn.write("{} :: {} :: {} :: {}\n".format(i+1,self.names[i], self.links[i],self.subcodes[i][:10]))
+            for i in range(len(self.codes)):
+                fileIn.write("{} :: {} :: {} :: {}\n".format(
+                    i+1, self.names[i], self.links[i], self.subcodes[i][:10]))
 
         calFile = './Data/.calFile'
 
         with open(calFile, 'w') as fileIn:
             for i in range(6):
-                fileIn.write('{} : {}\n'.format(self.weekdays[i][0], self.weekdays[i][1]))
-
+                fileIn.write('{} : {}\n'.format(
+                    self.weekdays[i][0], self.weekdays[i][1]))
 
     def bye(self):
         self.saveState()
@@ -172,15 +188,13 @@ class BB:
         driver.quit()
 
 
-        
-
 if __name__ == "__main__":
     set_opt()
     x = BB()
     x.login()
     day = date.today().strftime("%A")
     rn = int(date.now().strftime("%H%M"))
-    print("You logged in on " + str(day) + " at " + str(rn) + " hours !" )
+    print("You logged in on " + str(day) + " at " + str(rn) + " hours !")
     x.gettingStarted()
 
     comp = './Data/.setupComp'

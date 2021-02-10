@@ -44,7 +44,7 @@ def set_opt():
 class BB:
 
     def __init__(self):
-        cred = './Data/.doNotTouch'
+        cred = './Data/.cred'
         
         try:
             with open(cred, 'r') as fileIn:
