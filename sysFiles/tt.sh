@@ -7,11 +7,12 @@ if [ $t -le 999 ]
 then
     echo "Waiting for $( expr 999 - $t - 40) minutes"
     sleep $( expr 999 - $t - 40)m
+    t=$(date +%H%M)
 elif [ $t -ge 1630 ]
 then
     echo "You're too late to handle the power of spinzitzu";exit
 else
-    continue
+    echo "Getting in class"
 fi
 
 while [ $t -lt 1630 ]
@@ -48,12 +49,16 @@ do
         echo "You're too late to handle the power of spinzitzu";exit
     fi
 
-    c=$(( $d *10 +$l +1))
-    line=$(sed -n "${c}p " ../Data/.calFile)
-    # link="$(echo $line | sed "s/'//g")"
-    # link="$(echo $link | sed "s/,//g")"
+    c=$(( $d *10 + $l + 1))
+    #echo $c
+    #for entry in `ls ./`; do
+        #echo $entry
+    #done
+    calpath='./Data/.calFile'
+    link=$(sed -n "${c}p" "$calpath")
     echo $link
     brave $link --noerrdialogs
     echo "Waiting for $limit minutes"
-    sleep "$limit"m
+    sleep "$limit"
+    t=$(date +%H%M)
 done

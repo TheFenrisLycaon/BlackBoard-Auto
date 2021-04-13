@@ -2,9 +2,6 @@
 GroupedSorting=true
 PreviewsShown=false
 SortRole=type
-Timestamp=2021,4,13,9,32,22.172
+Timestamp=2021,4,13,9,32,44.416
 Version=4
 VisibleRoles=Icons_text,Icons_size
-
-[Settings]
-HiddenFilesShown=true
