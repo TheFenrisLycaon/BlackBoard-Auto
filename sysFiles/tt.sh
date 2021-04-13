@@ -59,6 +59,6 @@ do
     echo $link
     brave $link --noerrdialogs
     echo "Waiting for $limit minutes"
-    sleep "$limit"
+    sleep "$limit"m
     t=$(date +%H%M)
 done
