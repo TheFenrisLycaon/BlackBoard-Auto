@@ -17,19 +17,19 @@ fi
 
 while [ $t -lt 1630 ]
 do
-    if [ $t -le 1045 -a $t -ge 959 ]
+    if [ $t -le 1044 -a $t -ge 959 ]
     then
         l=1
         limit=$(expr 1100 - $t - 40)
-    elif [ $t -le 1145 -a $t -ge 1059 ]
+    elif [ $t -le 1144 -a $t -ge 1059 ]
     then 
         l=2
         limit=$(expr 1200 - $t - 40)
-    elif [ $t -le 1245 -a $t -ge 1159 ]
+    elif [ $t -le 1244 -a $t -ge 1159 ]
     then 
         l=3
         limit=$( expr 1345 - $t - 40)
-    elif [ $t -le 1345 -a $t -ge 1244 ]
+    elif [ $t -le 1344 -a $t -ge 1244 ]
     then 
         l=4
         limit=$( expr 1345 - $t - 40)
