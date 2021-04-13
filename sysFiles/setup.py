@@ -14,8 +14,7 @@ try:
     from time import sleep
     from datetime import datetime as date
     from selenium.webdriver.chrome.options import Options
-    from selenium.webdriver.common.action_chains import ActionChains
-    print("Successful")
+    # print("Successful")
 except:
     print('Installing imports')
     install('selenium')
@@ -44,13 +43,18 @@ def set_opt():
 class BB:
 
     def __init__(self):
-        self.username = str(input('Enter Username ::\t'))
-        self.password = str(getpass('Enter Password ::\t'))
-
         if os.path.isdir('Data'):
             pass
         else:
             os.makedirs('Data')
+
+        if '.cred' not in os.listdir('./Data'):
+            self.username = str(input('Enter Username ::\t'))
+            self.password = str(getpass('Enter Password ::\t'))
+        else:
+            print("Credentials Found... Logging in...")
+            with open('./Data/.cred', 'r') as fileIn:
+                self.username, self.password = fileIn.read().split()
 
         self.courses = []
         self.weekdays = [None, None, None, None, None, None]
@@ -179,8 +183,10 @@ class BB:
 
         with open(calFile, 'w') as fileIn:
             for i in range(6):
-                fileIn.write('{} : {}\n'.format(
-                    self.weekdays[i][0], self.weekdays[i][1]))
+                fileIn.write(str(self.weekdays[i][0]) + ' : [\n')
+                for j in self.weekdays[i][1]:
+                    fileIn.write(str(j)+'\n')
+                fileIn.write("]\n\n")
 
     def bye(self):
         self.saveState()
@@ -201,7 +207,5 @@ if __name__ == "__main__":
 
     with open(comp, 'w') as fileIn:
         fileIn.write('Welcome to future !!!')
-
-    input()
-
+    input("Press Enter to exit.")
     x.bye()
