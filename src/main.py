@@ -1,5 +1,5 @@
 from datetime import date
-from src.classes import BB, initialize
+from classes import BB, initialize
 
 if __name__ == "__main__":
     timestamps = [1000, 1045, 1145, 1245, 1330, 1430, 1530, 1630]

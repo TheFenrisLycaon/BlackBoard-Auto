@@ -1,7 +1,7 @@
 from getpass import getpass
 from main import set_opt
 from datetime import date
-from src.classes import BB, initialize
+from classes import BB, initialize
 
 
 if __name__ == "__main__":
