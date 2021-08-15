@@ -1,7 +1,9 @@
 [Dolphin]
 GroupedSorting=true
-PreviewsShown=false
 SortRole=type
-Timestamp=2021,4,22,13,53,15.139
+Timestamp=2021,8,15,15,25,47.641
 Version=4
-VisibleRoles=Icons_text,Icons_size
+VisibleRoles=Icons_text
+
+[Settings]
+HiddenFilesShown=true

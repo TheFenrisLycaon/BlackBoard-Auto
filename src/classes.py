@@ -1,7 +1,6 @@
 import subprocess
 import os
 import sys
-import ast
 
 
 class initialize:
@@ -48,7 +47,7 @@ class BB:
 
         if '.cred' not in os.listdir('./Data'):
             self.username = str(input('Enter Username ::\t'))
-            self.password = str(getpass('Enter Password ::\t'))
+            self.password = str(input('Enter Password ::\t'))
         else:
             print("Credentials Found... Logging in...")
             with open('./Data/.cred', 'r') as fileIn:
@@ -57,7 +56,7 @@ class BB:
         self.courses = []
         self.weekdays = [None, None, None, None, None, None]
         self.driver = webdriver.Chrome(
-            executable_path=r"./sysFiles/chromedriver", options=set_opt())
+            executable_path=r"./src/chromedriver", options=initialize.set_opt())
         self.driver.get(
             "https://cuchd.blackboard.com/?new_loc=%2Fultra%2Fcourse")
         sleep(2)
@@ -129,7 +128,7 @@ class BB:
 
         for i in range(len(self.codes)):
             self.courses.append(
-                (i+1, self.names[i], self.links[i], self.subcodes[i][:10]))
+                (i+1, self.names[i], self.links[i], self.subcodes[i][4:11]))
 
     def setCalender(self):
         self.weekdays = [('MON', []), ('TUE', []), ('WED', []),
@@ -210,7 +209,7 @@ class BB:
         if y < 999:
             print("Hold ON !!!")
             sleep(((945 - y)//100)*3600 + ((945-y) % 100)*60)
-            y = int(date.now().strftime("%H%M"))
+            y = int(datetime.now().strftime("%H%M"))
             self.bring(x, y)
         elif y >= 1000 and y < 1045:
             t = 0
@@ -246,7 +245,7 @@ class BB:
                       str(timeWaiting) + ' seconds !')
                 sleep(timeWaiting)
                 t += 1
-                y = int(date.now().strftime("%H%M"))
+                y = int(datetime.now().strftime("%H%M"))
                 continue
 
             else:
@@ -309,7 +308,7 @@ class BB:
             sleep(timeWaiting)
             driver.close()
             driver.switch_to.window(driver.window_handles[0])
-            y = int(date.now().strftime("%H%M"))
+            y = int(datetime.now().strftime("%H%M"))
 
         driver.quit()
 
