@@ -1,5 +1,7 @@
 # BlackBoard-Autologger
 
+### DEPRECATED SINCE THEY SWITCHED TO MS TEAMS AND THAT HAS AN IN-BUILT CALENDAR.
+
 A python based application that automatically logs in into your accounts and attends your classes on ```cuchd.blackboard.com``` website. I wrote this script STRICTLY for EDUCATIONAL PURPOSES and I am NOT RESPONSIBLE for any **non-disciplinary** action commited by its users, i.e., all the students of Chandigarh University (yes, **ALL**, not just CSE or AIT !)
 
 With that being said, let's get right into it, shall we ?
